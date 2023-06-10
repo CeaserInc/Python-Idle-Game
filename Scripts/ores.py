@@ -35,7 +35,6 @@ class Ore(object.Object):
 
     def useFriction(self):
         self.velocity.transform(self.friction, "multiply")
-        print(self.velocity.x, self.velocity.y)
         if self.velocity.x < 0.01:
             self.velocity.x = 0
         elif self.velocity.x > self.maxSpeed:

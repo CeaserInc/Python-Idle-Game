@@ -65,6 +65,7 @@ def gameLoop():
 
         moveBuyableObject()
         conveyorMove()
+        killOreOnGround()
 
         allObjectsGroup.draw(screen)
 
@@ -134,6 +135,22 @@ def gridMousePos(pos):
     global GRID_SPACING
     return Vector2(math.floor(pos[0] / GRID_SPACING) * GRID_SPACING, math.floor(pos[1] / GRID_SPACING) * GRID_SPACING)
 
+def killOreOnGround():
+    global allObjectsGroup
+    oreList = getObject(allObjectsGroup, [ores.Ore])
+    collisions = []
+    for ore in oreList:
+        collisions = pygame.sprite.spritecollide(ore, allObjectsGroup, False)
+        if len(collisions) == 1:
+            ore.kill()
+            print("1")
+        elif len(collisions) == 2:
+            if type(collisions[0]) == ores.Ore:
+                ore.kill()
+                print("2")
+            elif not(collisions[0].placed):
+                ore.kill()
+                print("3")
 
 if __name__ == "__main__":
     main()
